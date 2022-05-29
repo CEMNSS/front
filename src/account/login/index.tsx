@@ -5,7 +5,7 @@ import {
     RadioGroup,
     FormControlLabel,
     FormControl,
-    TextField,
+    TextField
 } from "@mui/material"
 import { useEffect, useState } from "react"
 
@@ -84,7 +84,10 @@ export const Login = () => {
                             error={passwordError}
                         />
 
-                        <Link href="#" style={{ marginTop: "16px" }}>
+                        <Link
+                            href="/registration"
+                            style={{ marginTop: "16px" }}
+                        >
                             Aluno novo? Click aqui para fazer sua matrícula
                         </Link>
 
