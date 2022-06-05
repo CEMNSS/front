@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 import Login from "../account/login"
+import PersonalDocuments from "../account/registration/personalDocuments"
 import Registration from "../account/registration/personalData"
 
 const Router = () => {
@@ -9,6 +10,10 @@ const Router = () => {
             <Routes>
                 <Route index element={<Login />} />
                 <Route path="/registration" element={<Registration />} />
+                <Route
+                    path="/personalDocuments"
+                    element={<PersonalDocuments />}
+                />
             </Routes>
         </BrowserRouter>
     )

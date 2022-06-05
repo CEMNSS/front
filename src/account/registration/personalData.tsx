@@ -18,13 +18,51 @@ import {
 import * as Layout from "../../layout"
 import * as Styles from "./styles"
 
+import { useNavigate } from "react-router-dom"
+
+import { toast } from "react-toastify"
+
 import { states } from "../../services/states"
 
 const PersonalData = () => {
+    const navigate = useNavigate()
+
     const [photo, setPhoto] = useState("")
     const [userData, setUserData] = useState({
-        name: ""
+        name: "",
+        birthday: "",
+        motherName: "",
+        fatherName: "",
+        email: "",
+        phone: "",
+        cityOfBirth: "",
+        stateOfBirth: "",
+        gender: "",
+        skinColor: ""
     })
+
+    const validateFields = () => {
+        const errors: string[] = []
+
+        Object.keys(userData).map((field) => {
+            if (!userData[field]) errors.push(field)
+        })
+
+        if (errors.length > 0) {
+            toast("Todos os campos são obrigatórios", {
+                type: "error"
+            })
+
+            return
+        }
+
+        navigate("/personalDocuments", {
+            state: {
+                userData,
+                photo
+            }
+        })
+    }
 
     async function handleFile(file: File) {
         if (!file) return
@@ -91,6 +129,13 @@ const PersonalData = () => {
                                         required
                                         type="date"
                                         focused
+                                        value={userData.birthday}
+                                        onChange={(event) =>
+                                            setUserData({
+                                                ...userData,
+                                                birthday: event.target.value
+                                            })
+                                        }
                                     />
                                 </Layout.Column>
 
@@ -122,6 +167,13 @@ const PersonalData = () => {
                                         variant="outlined"
                                         margin="normal"
                                         required
+                                        value={userData.motherName}
+                                        onChange={(event) =>
+                                            setUserData({
+                                                ...userData,
+                                                motherName: event.target.value
+                                            })
+                                        }
                                     />
                                 </Layout.Column>
 
@@ -133,6 +185,13 @@ const PersonalData = () => {
                                         margin="normal"
                                         required
                                         type="tel"
+                                        value={userData.phone}
+                                        onChange={(event) =>
+                                            setUserData({
+                                                ...userData,
+                                                phone: event.target.value
+                                            })
+                                        }
                                     />
                                 </Layout.Column>
                             </Layout.Row>
@@ -145,6 +204,13 @@ const PersonalData = () => {
                                         variant="outlined"
                                         margin="normal"
                                         required
+                                        value={userData.fatherName}
+                                        onChange={(event) =>
+                                            setUserData({
+                                                ...userData,
+                                                fatherName: event.target.value
+                                            })
+                                        }
                                     />
                                 </Layout.Column>
 
@@ -156,6 +222,13 @@ const PersonalData = () => {
                                         margin="normal"
                                         required
                                         type="email"
+                                        value={userData.email}
+                                        onChange={(event) =>
+                                            setUserData({
+                                                ...userData,
+                                                email: event.target.value
+                                            })
+                                        }
                                     />
                                 </Layout.Column>
                             </Layout.Row>
@@ -167,6 +240,13 @@ const PersonalData = () => {
                                         variant="outlined"
                                         margin="normal"
                                         required
+                                        value={userData.cityOfBirth}
+                                        onChange={(event) =>
+                                            setUserData({
+                                                ...userData,
+                                                cityOfBirth: event.target.value
+                                            })
+                                        }
                                     />
                                 </Layout.Column>
                                 <Layout.Column tablet={2}>
@@ -183,14 +263,20 @@ const PersonalData = () => {
                                         <Select
                                             labelId="select-state-label"
                                             id="select-state"
-                                            value={states[0]}
                                             fullWidth
                                             label="Estado"
                                             style={{
                                                 marginTop: "16px",
                                                 marginBottom: "8px"
                                             }}
-                                            // onChange={handleChange}
+                                            value={userData.stateOfBirth}
+                                            onChange={(event) =>
+                                                setUserData({
+                                                    ...userData,
+                                                    stateOfBirth:
+                                                        event.target.value
+                                                })
+                                            }
                                         >
                                             {states.map((state, index) => {
                                                 return (
@@ -215,6 +301,13 @@ const PersonalData = () => {
                                             row
                                             aria-labelledby="demo-row-radio-buttons-group-label"
                                             name="row-radio-buttons-group"
+                                            value={userData.gender}
+                                            onChange={(event) =>
+                                                setUserData({
+                                                    ...userData,
+                                                    gender: event.target.value
+                                                })
+                                            }
                                         >
                                             <FormControlLabel
                                                 value="male"
@@ -241,6 +334,14 @@ const PersonalData = () => {
                                             row
                                             aria-labelledby="radio-group-color"
                                             name="radio-skin-color"
+                                            value={userData.skinColor}
+                                            onChange={(event) =>
+                                                setUserData({
+                                                    ...userData,
+                                                    skinColor:
+                                                        event.target.value
+                                                })
+                                            }
                                         >
                                             <FormControlLabel
                                                 value="branca"
@@ -286,7 +387,7 @@ const PersonalData = () => {
                                             variant="contained"
                                             size="large"
                                             style={{ marginTop: "16px" }}
-                                            onClick={() => console.log("ok")}
+                                            onClick={validateFields}
                                         >
                                             Próximo
                                         </Button>

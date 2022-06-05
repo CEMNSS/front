@@ -42,3 +42,9 @@ export const FlexEnd = styled.div`
     justify-content: flex-end;
     align-items: center;
 `
+
+export const DocumentImage = styled.img`
+    width: 100%;
+    max-width: 250px;
+    margin-top: 32px;
+`
