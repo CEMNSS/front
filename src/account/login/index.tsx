@@ -88,7 +88,7 @@ export const Login = () => {
                             href="/registration"
                             style={{ marginTop: "16px" }}
                         >
-                            Aluno novo? Click aqui para fazer sua matrícula
+                            Aluno novo? Faça sua matrícula aqui
                         </Link>
 
                         <Button
